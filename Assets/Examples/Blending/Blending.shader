@@ -1,4 +1,4 @@
-﻿Shader "Hubris/Camera/BlendModes"
+﻿Shader "Hidden/Synecdoche/Camera/Blending"
 {
 	Properties
 	{
@@ -8,28 +8,21 @@
 
 	CGINCLUDE
 	#include "UnityCG.cginc"
-
-	//#include "../../Hubris/CG/AllIncs.hlsl"
+	#include "../../Synecdoche/HLSL/HLSL.hlsl"
 
 	sampler2D _MainTex;
-
-	sampler2D _SecondTex;
-
-
-//#include "../../Hubris/HLSL/HubrisHLSL.hlsl"
-#include "../../Hubris/HLSL/GPU.hlsl"
-
-
-	
-
+	sampler2D secondCamera;
+	float4 blendSettings; // Mode, Composite, Coverage, 0
 
 
 	half4 frag(v2f_img i) : SV_Target
 	{
-	/*	half4 cam = tex2D(_MainTex, i.uv);
-		half4 tex = tex2D(gustavTex, i.uv);*/
-		//half4 blend = Hubris::blend(tex, cam, blendMode, composite, coverage);
-		//return half4(blend.rgb, 1.0);
+		half4 cam = tex2D(_MainTex, i.uv);
+		half4 tex = tex2D(secondCamera, i.uv);
+		half4 blend = Hubris::Blend(tex, cam, blendSettings.x, blendSettings.y, blendSettings.z);
+		
+		return half4(blend.rgb, 1.0);
+
 		// return Hubris::ShiftHSV(cam, 0.5, 1.0, 0.0);
 
 
@@ -48,20 +41,20 @@
 
 		// return half4(kuler, 1.0);
 
-		float4 xyzw = 0.0;
-		xyzw.xy = i.uv * 10.0;
-		xyzw.zw = time;
+		// float4 xyzw = 0.0;
+		// xyzw.xy = i.uv * 10.0;
+		// xyzw.zw = time;
 
-		float2 shift;
-		shift.x = Hubris::Noise(noise, xyzw, fallOff, angle, t, ridgeOffset, octaves, lacunarity, gain);
+		// float2 shift;
+		// shift.x = Hubris::Noise(noise, xyzw, fallOff, angle, t, ridgeOffset, octaves, lacunarity, gain);
 
-		xyzw.xy = i.uv * 10.0 + float2(23.0, 7.0);
-		xyzw.zw = time + float2(5.0, 13.0);
+		// xyzw.xy = i.uv * 10.0 + float2(23.0, 7.0);
+		// xyzw.zw = time + float2(5.0, 13.0);
 
-		shift.y = Hubris::Noise(noise, xyzw, fallOff, angle, t, ridgeOffset, octaves, lacunarity, gain);
-		shift += i.uv;
+		// shift.y = Hubris::Noise(noise, xyzw, fallOff, angle, t, ridgeOffset, octaves, lacunarity, gain);
+		// shift += i.uv;
 
-			return tex2D(_MainTex, shift);
+		// 	return tex2D(_MainTex, shift);
 
 	}
 
