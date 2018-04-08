@@ -1,6 +1,6 @@
 [submodule "Assets/Synecdoche/HLSL"]
 	path = Assets/Synecdoche/HLSL
-	url = /Users/ogo/Hubris/SynecdocheExamples/HLSL-LibraryExamples/Assets/Synecdoche/HLSL
+url=https://youandhubris@github.com/youandhubris/HLSL-Library.git
 [submodule "Assets/Synecdoche/Base"]
 	path = Assets/Synecdoche/Base
-	url = /Users/ogo/Hubris/Synecdoche/Base
+url=https://youandhubris@github.com/youandhubris/Synecdoche.git
